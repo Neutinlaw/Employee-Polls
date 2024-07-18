@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  align-items: center;
+  place-content: space-between;
+  padding: 0 10px 0 40px;
+  background: #fff;
+  border-bottom: 1px solid #d4d4d4;
+  .link-page {
+    text-decoration: none;
+    &.active {
+      border-bottom: 3px solid #d4d4d4;
+    }
+  }
+  .ant-typography {
+    margin-bottom: 0;
+  }
+  .ant-menu {
+    padding-right: 20px;
+    border-right: 1px solid #d4d4d4;
+  }
+  .logo {
+    flex: 1;
+  }
+  a {
+    text-decoration: none;
+  }
+  .header-buttons {
+    margin-left: auto;
+  }
+  .ant-space {
+    padding-left: 20px;
+  }
+  .header-left {
+    display: flex;
+    gap: 30px;
+  }
+}

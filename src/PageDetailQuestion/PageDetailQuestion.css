@@ -1,0 +1,79 @@
+.question-details-page {
+    main {
+        min-height: 100vh;
+        text-align: center;
+        background-color: #fff;
+
+        .ant-avatar {
+            width: 200px;
+            height: 200px;
+        }
+
+        .decription {
+            margin-top: 0.5em;
+            margin-bottom: 2em;
+        }
+
+        .ant-layout {
+            display: grid;
+            padding: 0 100px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            background-color: #fff;
+        }
+
+        .card-wrap {
+            .ant-card-head-wrapper {
+                text-align: center;
+                font-size: 30px;
+            }
+        }
+
+        .ant-progress {
+            width: 100%;
+
+            >div {
+                justify-content: center;
+            }
+        }
+
+        .ant-card {
+            height: calc(100% - 22px);
+
+            .ant-card-body {
+                height: calc(100% - 33px);
+
+                pre {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .ant-card-actions {
+            >li {
+                margin: 0;
+            }
+
+            button {
+                width: 100%;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+
+                &:disabled {
+                    border: none;
+                }
+
+                &:not(:disabled) {
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                    transition: 0.3s;
+                }
+
+                &:hover:not(:disabled) {
+                    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+                }
+            }
+        }
+    }
+}

@@ -1,24 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import React from "react";
+import { Routes, Route, Navigate, useLocation, Outlet } from "react-router-dom";
+const LoginPage = React.lazy(() => import("./LoginPage/LoginPage"));
+const PageQuestions = React.lazy(() => import("./PageQuestions/PageQuestions"));
+const PageDetailQuestion = React.lazy(() =>
+  import("./PageDetailQuestion/PageDetailQuestion"));
+const PageNewQuestion = React.lazy(() =>
+  import("./NewQuestion/PageNewQuestion")
+);
+const PageLeaderBoard = React.lazy(() =>
+  import("./PageLeaderBoard/PageLeaderBoard")
+);
+const PageNotFound = React.lazy(() => import("./PageNotFound/PageNotFound"));
 
-function App() {
+const App = () => {
+  const location = useLocation();
+  const PrivateRoute = ({ children }) => {
+    const isAuthenticated = !!sessionStorage.getItem("sessionLogin");
+    return isAuthenticated ? (
+      <Outlet />
+    ) : (
+      <Navigate to={"/login"} replace state={{ from: location }} />
+    );
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route element={<PrivateRoute />}>
+        <Route path={"/questions"} element={<PageQuestions />} />
+        <Route path={"/questions/:id"} element={<PageDetailQuestion />} />
+        <Route path={"/add"} element={<PageNewQuestion />} />
+        <Route path={"/leaderboard"} element={<PageLeaderBoard />} />
+      </Route>
+      <Route path="/" element={<Navigate to={"/login"} />} />
+      <Route path="*" element={<PageNotFound />} />
+      <Route path={"/login"} element={<LoginPage />} />
+      <Route path={"/page-not-found"} element={<PageNotFound />} />
+    </Routes>
   );
 }
 

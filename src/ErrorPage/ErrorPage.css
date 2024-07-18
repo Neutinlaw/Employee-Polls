@@ -1,0 +1,26 @@
+.error-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  font-family: sans-serif;
+  text-align: center;
+  h1 {
+    font-size: 8rem;
+    margin-bottom: 1rem;
+    color: #dc3545;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #343a40;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: #6c757d;
+  }
+}
