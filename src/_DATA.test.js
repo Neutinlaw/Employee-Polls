@@ -11,18 +11,11 @@ describe("_DATA", () => {
             optionTwoText: "option 2",
         };
 
-        const actual = await _saveQuestion(mockQuestion);
-        const {
-            author,
-            optionOne,
-            optionTwo
-        } = actual;
-        const option1 = optionOne.text;
-        const option2 = optionTwo.text;
+        const response = await _saveQuestion(mockQuestion);
 
-        expect(author).toEqual("sarahedo");
-        expect(option1).toEqual("option 1");
-        expect(option2).toEqual("option 2");
+        expect(response.author).toEqual("sarahedo");
+        expect(response.optionOne.text).toEqual("option 1");
+        expect(response.optionTwo.text).toEqual("option 2");
     });
 
     it("save question fail", async () => {
