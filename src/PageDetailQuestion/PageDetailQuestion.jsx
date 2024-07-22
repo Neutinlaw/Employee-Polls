@@ -48,7 +48,7 @@ const PageDetailQuestion = () => {
             if (question) {
                 setquestionInfomation(question);
             } else {
-                console.log("err")
+                navigate("/page-not-found");
             }
         }
     }, [questions, navigate, id]);

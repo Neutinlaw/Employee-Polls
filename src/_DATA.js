@@ -159,9 +159,9 @@ export function _getQuestions() {
   })
 }
 
-function formatQuestion({ optionOneText, optionTwoText, author }) {
+function formatQuestion({ optionOneText, optionTwoText, author, id }) {
   return {
-    id: generateUID(),
+    id,
     timestamp: Date.now(),
     author,
     optionOne: {
@@ -181,8 +181,17 @@ export function _saveQuestion(question) {
       reject("Please provide optionOneText, optionTwoText, and author");
     }
 
-    const formattedQuestion = formatQuestion(question)
+    const questionId = generateUID();
+    const formattedQuestion = formatQuestion({...question, id: questionId })
     setTimeout(() => {
+      users = {
+        ...users,
+        [question.author]: {
+          ...users[question.author],
+          questions: [ ...users[question.author].questions, questionId]
+        }
+      }
+      
       questions = {
         ...questions,
         [formattedQuestion.id]: formattedQuestion
