@@ -4,13 +4,12 @@
     background-color: #fff;
   }
   .card-wrap {
+    margin-top: 20px;
     .ant-card-head-wrapper {
       text-align: center;
       font-size: 30px;
     }
-    &:not(:first-of-type) {
-      margin-top: 20px;
-    }
+
     &:not(.no-data) > .ant-card-body {
       display: grid;
       grid-template-columns: repeat(3, 1fr);

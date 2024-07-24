@@ -32,7 +32,7 @@ const PageNewQuestion = () => {
     };
     startTransition(() => {
       dispatch(addNewQuestion(question));
-    })
+    });
   };
 
   useEffect(() => {
@@ -45,13 +45,13 @@ const PageNewQuestion = () => {
   useEffect(() => {
     if (newQuestionInfo) {
       if (newQuestionInfo.id) {
-        navigate("/questions");
+        navigate("/questions", { state: { usr: true } });
       } else {
         message.error("Add question failed!");
       }
       startTransition(() => {
         dispatch(resetAddQuestionData());
-      })
+      });
     }
   }, [newQuestionInfo, dispatch, navigate]);
 
@@ -60,7 +60,7 @@ const PageNewQuestion = () => {
       message.error(error);
       startTransition(() => {
         dispatch(clearError());
-      })
+      });
     }
   }, [dispatch, error]);
 

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "./PageNotFound.css";
 import TopPage from "../TopPage/TopPage";
 
-
 const PageNotFound = () => {
   const navigate = useNavigate();
 
@@ -23,7 +22,7 @@ const PageNotFound = () => {
             <Button
               type="primary"
               key="home"
-              onClick={() => navigate("/questions")}
+              onClick={() => navigate("/questions", { state: { usr: true } })}
             >
               Go back to the home page
             </Button>,

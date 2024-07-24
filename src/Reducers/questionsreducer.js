@@ -11,7 +11,8 @@ import {
     sortBy,
     reduce,
     concat,
-    isEmpty
+    isEmpty,
+    includes
 } from "lodash";
 
 const initialState = {
@@ -24,7 +25,6 @@ const initialState = {
 };
 
 const questionsReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case ACTION_PENDING_APPROVAL(ACTION_TYPE.FETCH_ALL_QUESTION):
         case ACTION_PENDING_APPROVAL(ACTION_TYPE.FETCH_QUESTION):
@@ -35,25 +35,27 @@ const questionsReducer = (state = initialState, action) => {
                 error: null,
                     loading: true,
             };
-        case ACTION_FULFILLED(ACTION_TYPE.FETCH_ALL_QUESTION):
+        case ACTION_FULFILLED(ACTION_TYPE.FETCH_ALL_QUESTION): {
             const newQuestionData = reduce(
-                action.payload,
+                action.payload.data,
                 (result, question) => {
                     const newQuestionFlag = {
                         ...question,
-                        newQuestionFlag: isEmpty(question.optionOne.votes) &&
-                            isEmpty(question.optionTwo.votes),
+                        newQuestionFlag: (isEmpty(question.optionOne.votes) &&
+                                isEmpty(question.optionTwo.votes)) ||
+                            (!includes(question.optionOne.votes, action.payload.meta) &&
+                                !includes(question.optionTwo.votes, action.payload.meta)),
                     };
                     return concat(result || [], newQuestionFlag);
                 },
                 []
             );
-
             return {
                 ...state,
                 loading: false,
-                    allQuestion: sortBy(newQuestionData, "timestamp").reverse(),
+                allQuestion: sortBy(newQuestionData, "timestamp").reverse(),
             };
+        }
         case ACTION_FULFILLED(ACTION_TYPE.FETCH_QUESTION):
             return {
                 ...state,
@@ -75,7 +77,7 @@ const questionsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                newQuestionInfo: action.payload,
+                    newQuestionInfo: action.payload,
             };
         case ACTION_FULFILLED(ACTION_TYPE.RESET_ADD_QUESTION_DATA):
             return {
@@ -95,6 +97,6 @@ const questionsReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};
 
 export default questionsReducer;

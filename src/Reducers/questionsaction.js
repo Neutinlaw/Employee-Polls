@@ -15,9 +15,12 @@ export const ACTION_TYPE = {
 
 export const fetchAllQuestion = createAsyncThunk(
     ACTION_TYPE.FETCH_ALL_QUESTION,
-    async () => {
+    async (userId) => {
       const result = await _getQuestions();
-      return result;
+      return {
+        data: result,
+        meta: userId
+      };
     }
   );
 

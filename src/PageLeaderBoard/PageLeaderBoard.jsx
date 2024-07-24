@@ -3,7 +3,7 @@ import { Avatar, Layout, Skeleton, Table } from "antd";
 import "./PageLeaderBoard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllUser } from "../Reducers/usersaction";
-import { reduce, concat, size, sortBy } from "lodash";
+import { reduce, concat, size, orderBy } from "lodash";
 import { UserOutlined } from "@ant-design/icons";
 import TopPage from "../TopPage/TopPage";
 
@@ -50,16 +50,15 @@ const PageLeaderBoard = () => {
       const data = reduce(
         allUser,
         (result = [], user) => {
-          return concat(result, {
+          return orderBy(concat(result, {
             key: user.id,
             user,
             answered: Object.keys(user.answers).length,
             created: size(user.questions),
-          });
+          }), ["answered", "created"], ["desc"]);
         },
         []
       );
-      sortBy(data, ["answered", "created"]);
       setLeaderBoard(data);
     }
   }, [allUser]);
